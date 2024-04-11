@@ -1,0 +1,10 @@
+/Users/Shrutis Workspace/user/src/main/java/com/studying/user/repository/UserRepository.java
+/Users/Shrutis Workspace/user/src/main/java/com/studying/user/controller/UserController.java
+/Users/Shrutis Workspace/user/src/main/java/com/studying/user/serviceImpl/UserServiceImpl.java
+/Users/Shrutis Workspace/user/src/main/java/com/studying/user/entity/User.java
+/Users/Shrutis Workspace/user/src/main/java/com/studying/user/entity/Rating.java
+/Users/Shrutis Workspace/user/src/main/java/com/studying/user/exception/ResourceNotFoundException.java
+/Users/Shrutis Workspace/user/src/main/java/com/studying/user/entity/ApiResponse.java
+/Users/Shrutis Workspace/user/src/main/java/com/studying/user/service/UserService.java
+/Users/Shrutis Workspace/user/src/main/java/com/studying/user/exception/GlobalExceptionHandler.java
+/Users/Shrutis Workspace/user/src/main/java/com/studying/user/UserApplication.java
