@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.studying.user.entity.User;
+import com.studying.user.record.UserRecord;
 import com.studying.user.service.UserService;
 
 @RestController
@@ -22,16 +23,16 @@ public class UserController {
 	UserService userService;
 	
 	@PostMapping("/saveUser")
-	public ResponseEntity<User> createUser (@RequestBody User user) {
+	public ResponseEntity<UserRecord> createUser (@RequestBody UserRecord user) {
 		
-		User response = userService.saveUser(user);
+		UserRecord response = userService.saveUser(user);
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 		
 	}
 	
 	@GetMapping("/getUser")
-	public ResponseEntity<User> getUser (@RequestBody String userId) {
+	public ResponseEntity<User> getUser (@RequestBody Long userId) {
 		
 		User response = userService.getUser(userId);
 		

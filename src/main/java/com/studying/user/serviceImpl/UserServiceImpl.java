@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import com.studying.user.entity.Rating;
 import com.studying.user.entity.User;
 import com.studying.user.exception.ResourceNotFoundException;
+import com.studying.user.record.UserRecord;
 import com.studying.user.repository.UserRepository;
 import com.studying.user.service.UserService;
 
@@ -27,9 +28,9 @@ public class UserServiceImpl implements UserService{
 	private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	@Override
-	public User saveUser(User user) {
+	public UserRecord saveUser(UserRecord user) {
 		//user.setUserId(UUID.randomUUID().toString());
-		return userRepo.save(user);
+		return userRepo.saveAndFlush(user.name(), user.email());
 	}
 
 	@Override
@@ -39,7 +40,7 @@ public class UserServiceImpl implements UserService{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public User getUser(String userId) {
+	public User getUser(Long userId) {
 		User result =  userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found."));
 		
 		//fetch Ratings of above user with API call with some client

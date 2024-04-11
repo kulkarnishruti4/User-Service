@@ -4,36 +4,36 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.ws.rs.DefaultValue;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
+
 @Entity
-@Table(name="User_APP")	
+@Table(name="USERS")	
 public class User {
 	
-	@Column(name="NAME")
-	private String name;
+	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Column(name = "ID")
-	private String userId;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long userId;
 	
-	@Column(name="EMAIL")
+	private String name;
+	
 	private String email;
 	
-	@Transient
-	private List<Rating> rating;
+	/*
+	 * @Transient private List<Rating> rating;
+	 */
 	
 
 }
