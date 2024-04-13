@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.studying.user.entity.Rating;
+import com.studying.user.dto.RatingDto;
+import com.studying.user.dto.UserDto;
 import com.studying.user.entity.User;
 import com.studying.user.exception.ResourceNotFoundException;
-import com.studying.user.record.UserRecord;
 import com.studying.user.repository.UserRepository;
 import com.studying.user.service.UserService;
 
@@ -28,9 +28,10 @@ public class UserServiceImpl implements UserService{
 	private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	@Override
-	public UserRecord saveUser(UserRecord user) {
-		//user.setUserId(UUID.randomUUID().toString());
-		return userRepo.saveAndFlush(user.name(), user.email());
+	public User saveUser(UserDto user) {
+		User userEntity = new User(user.getUserId(),user.getName(),user.getEmail());
+		return userRepo.save(userEntity);
+		
 	}
 
 	@Override
@@ -41,15 +42,18 @@ public class UserServiceImpl implements UserService{
 	@SuppressWarnings("unchecked")
 	@Override
 	public User getUser(Long userId) {
-		User result =  userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found."));
+		
+		User user =  userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found."));
 		
 		//fetch Ratings of above user with API call with some client
 		// so we need a client to make that call
 		// example: by REST template or Feign
 		
-		ArrayList<Rating> list = restTemplate.getForObject("http://localhost:8082/getRatingsByUserId/{userId}", ArrayList.class);
-		logger.debug("{}", list.size());
+		ArrayList<RatingDto> list = restTemplate.getForObject("http://RATING/ratings/getRatingsByUserId/"+userId, ArrayList.class);
 		
+		logger.debug("Size of User Ratings List for User :{} : {}", userId,list.size());
+		
+		ArrayList<RatingDto> ratingList = restTemplate.getForObject("http://RATING/ratings/getRatingsByHotelId/"+userId, ArrayList.class);
 		
 		/*
 		 * ArrayList<Rating> ratingList = list.stream().map( rating -> {
@@ -58,7 +62,9 @@ public class UserServiceImpl implements UserService{
 		 * ArrayList.class); }).collect(Collectors.toList());
 		 */
 		
-		return result;
+		user.setRating(list);
+		
+		return user;
 	}
 	
 	

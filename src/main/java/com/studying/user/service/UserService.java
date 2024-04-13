@@ -2,12 +2,12 @@ package com.studying.user.service;
 
 import java.util.List;
 
+import com.studying.user.dto.UserDto;
 import com.studying.user.entity.User;
-import com.studying.user.record.UserRecord;
 
 public interface UserService {
 	
-	UserRecord saveUser (UserRecord user);
+	User saveUser (UserDto user);
 	
 	List<User> getAllUser();
 	
